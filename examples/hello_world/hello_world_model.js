@@ -6,37 +6,42 @@ var HelloWorldModel = function(worldModel) {
     this.worldModel = worldModel;
 	 
     this.setup = function(){
-	var objectInfo = new teien.BoxObjectInfo(1, 1, 1);
-	objectInfo.textureName = "crate.gif";
-	this.box = this.worldModel.baseObjectManager.createObject("boxText", objectInfo, new teien.PhysicsInfo(10));
-	this.box.setPosition(new teien.Vector3D(0, 10, 0));
+	var obj;
 
 	var objectInfo = new teien.BoxObjectInfo(1, 1, 1);
 	objectInfo.textureName = "crate.gif";
-	this.box = this.worldModel.baseObjectManager.createObject("boxText2", objectInfo, new teien.PhysicsInfo(10));
-	this.box.setPosition(new teien.Vector3D(2, 10, 0));
+	obj = this.worldModel.baseObjectManager.createObject("boxText", objectInfo, new teien.PhysicsInfo(10));
+	obj.setPosition(new teien.Vector3D(0, 10, 0));
 
-	var objectInfo = new teien.BoxObjectInfo(1, 1, 1);
-	objectInfo.textureName = "crate.gif";
-	this.box = this.worldModel.baseObjectManager.createObject("boxText3", objectInfo, new teien.PhysicsInfo(10));
-	this.box.setPosition(new teien.Vector3D(4, 10, 0));
+	obj = this.worldModel.baseObjectManager.createObject("boxText2", objectInfo, new teien.PhysicsInfo(10));
+	obj.setPosition(new teien.Vector3D(2, 10, 0));
 
-	var objectInfo = new teien.BoxObjectInfo(1, 1, 1);
+	obj = this.worldModel.baseObjectManager.createObject("boxText3", objectInfo, new teien.PhysicsInfo(10));
+	obj.setPosition(new teien.Vector3D(4, 10, 0));
+
+	obj = this.worldModel.baseObjectManager.createObject("boxText4", objectInfo, new teien.PhysicsInfo(10));
+	obj.setPosition(new teien.Vector3D(-2, 10, 0));
+
+
+	var objectInfo = new teien.SphereObjectInfo(0.5);
 	objectInfo.textureName = "crate.gif";
-	this.box = this.worldModel.baseObjectManager.createObject("boxText4", objectInfo, new teien.PhysicsInfo(10));
-	this.box.setPosition(new teien.Vector3D(-2, 10, 0));
+	obj = this.worldModel.baseObjectManager.createObject("sphere0", objectInfo, new teien.PhysicsInfo(5));
+	obj.setPosition(new teien.Vector3D(0, 15, 0));
+
+	obj = this.worldModel.baseObjectManager.createObject("sphere1", objectInfo, new teien.PhysicsInfo(5));
+	obj.setPosition(new teien.Vector3D(0.5, 17, 0));
+
+	obj = this.worldModel.baseObjectManager.createObject("sphere2", objectInfo, new teien.PhysicsInfo(5));
+	obj.setPosition(new teien.Vector3D(0, 19, -0.5));
 
 
 	var objectInfo = new teien.BoxObjectInfo(50, 0.1, 50);
 	objectInfo.textureName = "crate.gif";
-	this.box = this.worldModel.baseObjectManager.createObject("floor", objectInfo, new teien.PhysicsInfo(0));
-	this.box.setPosition(new teien.Vector3D(0, -10, 0));
-	
+	obj = this.worldModel.baseObjectManager.createObject("floor", objectInfo, new teien.PhysicsInfo(0));
+	obj.setPosition(new teien.Vector3D(0, -10, 0));
     };
 
     this.update = function(delta){
-//	this.boxView.setTransform(this.box.getTransform());
-//	console.log("box pos: (" + newPos.getX() + ", " + newPos.getY() + ", " + newPos.getZ() + ")");
     };
 };
 
