@@ -7,11 +7,19 @@ var HelloWorldModel = function(worldModel) {
 	 
     this.setup = function(){
 	var obj;
+	var objectInfo;
 
-	var objectInfo = new teien.BoxObjectInfo(1, 1, 1);
-	objectInfo.textureName = "crate.gif";
+	this.worldModel.enableShadow(true);
+	//this.worldModel.enableShadow(false);
+
+	objectInfo = new teien.SpotLightObjectInfo(0xffffff);
+	obj = this.worldModel.baseObjectManager.createObject("spotLight", objectInfo);
+	obj.setPosition(new teien.Vector3D(-60,150,-30));
+
+	objectInfo = new teien.BoxObjectInfo(1, 1, 1);
+	objectInfo.textureName = "../../deps/three.js/examples/textures/crate.gif";
 	obj = this.worldModel.baseObjectManager.createObject("boxText", objectInfo, new teien.PhysicsInfo(10));
-	obj.setPosition(new teien.Vector3D(0, 10, 0));
+	obj.setPosition(new teien.Vector3D(0, -4, 0));
 
 	obj = this.worldModel.baseObjectManager.createObject("boxText2", objectInfo, new teien.PhysicsInfo(10));
 	obj.setPosition(new teien.Vector3D(2, 10, 0));
@@ -22,9 +30,8 @@ var HelloWorldModel = function(worldModel) {
 	obj = this.worldModel.baseObjectManager.createObject("boxText4", objectInfo, new teien.PhysicsInfo(10));
 	obj.setPosition(new teien.Vector3D(-2, 10, 0));
 
-
-	var objectInfo = new teien.SphereObjectInfo(0.5);
-	objectInfo.textureName = "crate.gif";
+	objectInfo = new teien.SphereObjectInfo(0.5);
+	objectInfo.textureName = "../../deps/three.js/examples/textures/crate.gif";
 	obj = this.worldModel.baseObjectManager.createObject("sphere0", objectInfo, new teien.PhysicsInfo(5));
 	obj.setPosition(new teien.Vector3D(0, 15, 0));
 
@@ -35,10 +42,10 @@ var HelloWorldModel = function(worldModel) {
 	obj.setPosition(new teien.Vector3D(0, 19, -0.5));
 
 
-	var objectInfo = new teien.BoxObjectInfo(50, 0.1, 50);
-	objectInfo.textureName = "crate.gif";
+	objectInfo = new teien.BoxObjectInfo(50, 1, 50);
+	objectInfo.textureName = "../../deps/three.js/examples/textures/terrain/grasslight-big.jpg";
 	obj = this.worldModel.baseObjectManager.createObject("floor", objectInfo, new teien.PhysicsInfo(0));
-	obj.setPosition(new teien.Vector3D(0, -10, 0));
+	obj.setPosition(new teien.Vector3D(0, -5, 0));
     };
 
     this.update = function(delta){

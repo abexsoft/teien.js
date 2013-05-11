@@ -6,12 +6,31 @@ var HelloWorldUi = function() {
 	this.model = model;
 	this.userInterface = userInterface;
 
-	//this.controls = new THREE.TrackballControls(this.userInterface.camera);
-	//this.controls = new THREE.FlyControls(this.userInterface.camera);
-	//this.controls.rollspeed = 0.001;
-	//this.controls = new THREE.FirstPersonControls(this.userInterface.camera);
-	//this.controls = new THREE.PointerLockControls(this.userInterface.camera);
 
+	this.userInterface.renderer.shadowMapEnabled = true;
+
+
+	//var ambient = new THREE.AmbientLight( 0x0 );
+        //this.userInterface.scene.add( ambient );
+
+/*
+	var spotLight = new THREE.SpotLight( 0xffffff );
+	spotLight.position.set(-60,150,-30);
+
+	spotLight.castShadow = true;
+
+	spotLight.shadowMapWidth = 1024;
+	spotLight.shadowMapHeight = 1024;
+
+	spotLight.shadowCameraNear = 10;
+	spotLight.shadowCameraFar = 500;
+	spotLight.shadowCameraFov = 30;
+
+	spotLight.shadowDarkness = 0.8;
+
+	//spotLight.shadowCameraVisible = true;
+	this.userInterface.scene.add(spotLight);
+*/
 	this.controls = new THREE.OrbitControls(this.userInterface.camera);
 
 	this.movementSpeed = 1.0;
