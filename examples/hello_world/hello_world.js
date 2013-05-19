@@ -1,110 +1,59 @@
+teienRootPath = "../../";  // teien.js need this value to import all libs.
+importScripts(teienRootPath + "lib/teien.js");
 
-var HelloWorldUi = function() {
+var HelloWorld = function(world) {
     var that = this;
+    this.world = world;
+	 
+    this.setup = function(){
+	var obj;
+	var actorInfo;
 
-    this.setup = function(model, userInterface) {
-	this.model = model;
-	this.userInterface = userInterface;
-
-
-	this.userInterface.renderer.shadowMapEnabled = true;
-
-
-	//var ambient = new THREE.AmbientLight( 0x0 );
-        //this.userInterface.scene.add( ambient );
-
+	//this.world.enableShadow(true);
 /*
-	var spotLight = new THREE.SpotLight( 0xffffff );
-	spotLight.position.set(-60,150,-30);
-
-	spotLight.castShadow = true;
-
-	spotLight.shadowMapWidth = 1024;
-	spotLight.shadowMapHeight = 1024;
-
-	spotLight.shadowCameraNear = 10;
-	spotLight.shadowCameraFar = 500;
-	spotLight.shadowCameraFov = 30;
-
-	spotLight.shadowDarkness = 0.8;
-
-	//spotLight.shadowCameraVisible = true;
-	this.userInterface.scene.add(spotLight);
+	actorInfo = new teien.SpotLightActorInfo(0xffffff);
+	obj = this.world.actorManager.createActor("spotLight", actorInfo);
+	obj.setPosition(new teien.Vector3D(-60,150,-30));
 */
-	this.controls = new THREE.OrbitControls(this.userInterface.camera);
+	actorInfo = new teien.BoxActorInfo(1, 1, 1);
+	actorInfo.textureName = "../../deps/three.js/examples/textures/crate.gif";
+	actorInfo.mass = 10;
+	obj = this.world.actorManager.createActor("boxText", actorInfo);
+	obj.setPosition(new teien.Vector3D(0, 10, 0));
 
-	this.movementSpeed = 1.0;
-	this.moveForward = false;
-	this.moveBackward = false;
-	this.moveLeft = false;
-	this.moveRight = false;
-	this.freeze = false;
+
+	obj = this.world.actorManager.createActor("boxText2", actorInfo);
+	obj.setPosition(new teien.Vector3D(2, 10, 0));
+
+	obj = this.world.actorManager.createActor("boxText3", actorInfo);
+	obj.setPosition(new teien.Vector3D(4, 10, 0));
+
+	obj = this.world.actorManager.createActor("boxText4", actorInfo);
+	obj.setPosition(new teien.Vector3D(-2, 10, 0));
+
+
+	actorInfo = new teien.SphereActorInfo(0.5);
+	actorInfo.mass = 5;
+	actorInfo.textureName = "../../deps/three.js/examples/textures/crate.gif";
+	obj = this.world.actorManager.createActor("sphere0", actorInfo);
+	obj.setPosition(new teien.Vector3D(0, 15, 0));
+
+	obj = this.world.actorManager.createActor("sphere1", actorInfo);
+	obj.setPosition(new teien.Vector3D(0.5, 17, 0));
+
+	obj = this.world.actorManager.createActor("sphere2", actorInfo);
+	obj.setPosition(new teien.Vector3D(0, 19, -0.5));
+
+
+	actorInfo = new teien.BoxActorInfo(50, 1, 50);
+	actorInfo.textureName = "../../deps/three.js/examples/textures/terrain/grasslight-big.jpg";
+	obj = this.world.actorManager.createActor("floor", actorInfo);
+	obj.setPosition(new teien.Vector3D(0, -0.5, 0));
     };
 
-    this.update = function(delta) {
-
-	if (this.freeze) return;
-
-	var actualMoveSpeed = delta * this.movementSpeed;
-
-	if ( this.moveForward )
-	    this.controls.pan(new THREE.Vector3(0, 0,  -actualMoveSpeed));
-
-	if ( this.moveBackward ) 
-	    this.controls.pan(new THREE.Vector3(0, 0,  actualMoveSpeed));
-
-	if ( this.moveLeft ) 
-	    this.controls.pan(new THREE.Vector3(-actualMoveSpeed, 0, 0));
-
-	if ( this.moveRight ) 
-	    this.controls.pan(new THREE.Vector3(actualMoveSpeed, 0, 0));
-
-	this.controls.update(delta);
+    this.update = function(delta){
     };
-
-
-    this.onKeyDown = function ( event ) {
-	switch ( event.keyCode ) {
-	case 38: /*up*/
-	case 87: /*W*/ that.moveForward = true; break;
-	    
-	case 37: /*left*/
-	case 65: /*A*/ that.moveLeft = true; break;
-	    
-	case 40: /*down*/
-	case 83: /*S*/ that.moveBackward = true; break;
-	    
-	case 39: /*right*/
-	case 68: /*D*/ that.moveRight = true; break;
-	    
-	case 81: /*Q*/ that.freeze = !this.freeze; break;
-	}
-    };
-
-    this.onKeyUp = function ( event ) {
-	switch( event.keyCode ) {
-	case 38: /*up*/
-	case 87: /*W*/ that.moveForward = false; break;
-	    
-	case 37: /*left*/
-	case 65: /*A*/ that.moveLeft = false; break;
-	    
-	case 40: /*down*/
-	case 83: /*S*/ that.moveBackward = false; break;
-	    
-	case 39: /*right*/
-	case 68: /*D*/ that.moveRight = false; break;
-	}	
-    };
-
-    document.addEventListener( 'keydown', this.onKeyDown, false );
-    document.addEventListener( 'keyup', this.onKeyUp, false );
 };
 
-
-var ui = new teien.UserInterface(HelloWorldUi);
-var model = new Worker("./hello_world_model.js");
-
-var browser = new teien.Browser(model, ui);
-browser.run();
+var world = new teien.World(HelloWorld);
 
