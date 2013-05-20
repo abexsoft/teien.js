@@ -9,12 +9,12 @@ var HelloWorld = function(world) {
 	var obj;
 	var actorInfo;
 
-	//this.world.enableShadow(true);
-/*
+	this.world.enableShadow(true);
+
 	actorInfo = new teien.SpotLightActorInfo(0xffffff);
 	obj = this.world.actorManager.createActor("spotLight", actorInfo);
 	obj.setPosition(new teien.Vector3D(-60,150,-30));
-*/
+
 	actorInfo = new teien.BoxActorInfo(1, 1, 1);
 	actorInfo.textureName = "../../deps/three.js/examples/textures/crate.gif";
 	actorInfo.mass = 10;
