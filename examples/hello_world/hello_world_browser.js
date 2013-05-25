@@ -11,6 +11,7 @@ var HelloWorldBrowser = function() {
 	this.userInterface.camera.position.set(0, 5, 10);
 	this.controls = new THREE.OrbitControls(this.userInterface.camera);
 
+
 	this.movementSpeed = 1.0;
 	this.moveForward = false;
 	this.moveBackward = false;

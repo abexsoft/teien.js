@@ -1,4 +1,4 @@
-teienRootPath = "../../";  // teien.js need this value to import all libs.
+teienRootPath = "../../";  // teien.js needs this value to import all libs.
 importScripts(teienRootPath + "lib/teien.js");
 
 var HelloWorld = function(world) {
@@ -10,6 +10,17 @@ var HelloWorld = function(world) {
 	var actorInfo;
 
 	this.world.enableShadow(true);
+
+	var materials = [
+            '../../deps/three.js/examples/textures/cube/skybox/px.jpg' ,
+            '../../deps/three.js/examples/textures/cube/skybox/nx.jpg' ,
+            '../../deps/three.js/examples/textures/cube/skybox/py.jpg' ,
+            '../../deps/three.js/examples/textures/cube/skybox/ny.jpg' ,
+            '../../deps/three.js/examples/textures/cube/skybox/pz.jpg' ,
+            '../../deps/three.js/examples/textures/cube/skybox/nz.jpg'  
+        ];
+	actorInfo = new teien.SkyBoxActorInfo(materials);
+	obj = this.world.actorManager.createActor("skybox", actorInfo);
 
 	actorInfo = new teien.SpotLightActorInfo(0xffffff);
 	obj = this.world.actorManager.createActor("spotLight", actorInfo);
