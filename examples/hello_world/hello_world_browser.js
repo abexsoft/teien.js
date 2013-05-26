@@ -5,11 +5,15 @@ var HelloWorldBrowser = function() {
     this.setup = function(model, userInterface) {
 	this.model = model;
 	this.userInterface = userInterface;
+	this.morphs = [];
 
 	this.userInterface.renderer.shadowMapEnabled = true;
 
 	this.userInterface.camera.position.set(0, 5, 10);
 	this.controls = new THREE.OrbitControls(this.userInterface.camera);
+
+
+//	this.userInterface.scene.add( new THREE.AmbientLight( 0xcccccc ) );
 
 
 	this.movementSpeed = 1.0;
@@ -28,7 +32,7 @@ var HelloWorldBrowser = function() {
 
 	if ( this.moveForward )
 	    this.controls.pan(new THREE.Vector3(0, 0,  -actualMoveSpeed));
-
+	
 	if ( this.moveBackward ) 
 	    this.controls.pan(new THREE.Vector3(0, 0,  actualMoveSpeed));
 
@@ -39,6 +43,9 @@ var HelloWorldBrowser = function() {
 	    this.controls.pan(new THREE.Vector3(actualMoveSpeed, 0, 0));
 
 	this.controls.update(delta);
+
+	if (this.morphs[0])
+	    this.morphs[0].updateAnimation(delta );
     };
 
     this.onKeyDown = function ( event ) {
@@ -72,6 +79,9 @@ var HelloWorldBrowser = function() {
 	    
 	case 39: /*right*/
 	case 68: /*D*/ that.moveRight = false; break;
+
+	case 82: /*r*/
+
 	}	
     };
 

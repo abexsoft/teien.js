@@ -26,6 +26,17 @@ var HelloWorld = function(world) {
 	obj = this.world.actorManager.createActor("spotLight", actorInfo);
 	obj.setPosition(new teien.Vector3D(-60,150,-30));
 
+	actorInfo = new teien.JsonMeshActorInfo(
+	    '../../deps/three.js/examples/models/animated/monster/monster.js');
+	actorInfo.mass = 10;
+	actorInfo.height = 1;
+	actorInfo.width = 1;
+	actorInfo.depth = 1;
+	actorInfo.viewPositionOffset = new teien.Vector3D(0, -0.5, 0);
+	obj = this.world.actorManager.createActor("jsonMesh", actorInfo);
+	obj.setPosition(new teien.Vector3D(0, 5 ,0));
+
+
 	actorInfo = new teien.BoxActorInfo(1, 1, 1);
 	actorInfo.textureName = "../../deps/three.js/examples/textures/crate.gif";
 	actorInfo.mass = 10;
