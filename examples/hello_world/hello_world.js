@@ -1,5 +1,5 @@
-teienRootPath = "../../";  // teien.js needs this value to import all libs.
-importScripts(teienRootPath + "lib/teien.js");
+importScripts("../../deps/ammo.js/builds/ammo.asm.js");
+importScripts("../../dist/teien.js");
 
 var HelloWorld = function(world) {
     var that = this;
