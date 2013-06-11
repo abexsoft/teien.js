@@ -397,14 +397,27 @@ if (typeof exports === 'undefined'){
 	     }
 	     
 	     var extname = path.extname(filePath);
-	     var contentType = 'text/html';
+	     var contentType = 'text/plain';
 	     
 	     switch (extname) {
+	     case '.html':
+	     case '.htm':
+		 contentType = 'text/html';
+		 break;
 	     case '.js':
 		 contentType = 'text/javascript';
 		 break;
 	     case '.css':
 		 contentType = 'text/css';
+		 break;
+	     case '.jpg':
+		 contentType = 'image/jpeg';
+		 break;
+	     case '.gif':
+		 contentType = 'image/gif';
+		 break;
+	     case '.png':
+		 contentType = 'image/png';
 		 break;
 	     }
 	     
@@ -440,8 +453,9 @@ if (typeof exports === 'undefined'){
 	 
 	 io.sockets.on('connection', 
 		       function (socket) {
+			   console.log("connection");
 			   socket.emit('news', { server: 'hello world' });
-			   socket.on('my other event', function (data) {
+			   socket.on('test_event', function (data) {
 					 console.log(data);
 				     });
 		       });

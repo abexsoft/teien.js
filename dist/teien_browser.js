@@ -4,9 +4,6 @@ if (typeof exports === 'undefined'){
 }
 
 
-var teien = teien || { REVISION: '0.0.1'};
-
-//teien.Vector3D = Ammo.btVector3;
 
 teien.Browser = function(worldModelWorker, userInterface) {
     var that = this;
