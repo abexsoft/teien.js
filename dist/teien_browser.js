@@ -267,7 +267,7 @@ teien.ActorView.prototype.setTransform = function(transform) {
 	 // for physics
 	 this.usePhysics = true;
 	 this.mass = 0;
-	 this.angularFactor = new teien.Vector3D(1.0, 1.0, 1.0);
+	 this.angularFactor = new exports.Vector3D(1.0, 1.0, 1.0);
 	 this.restitution = 0.2;
 	 this.friction = 1.0;
 	 this.linearDamping = 0.0;

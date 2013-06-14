@@ -81,7 +81,7 @@ var HelloWorld = function(world) {
 var indexHtml = __dirname + "/hello_world_browser.html";
 var publicRoot = __dirname + "/../..";
 
-var server = new teien.WorldServer(new HelloWorld(), indexHtml, publicRoot);
+var server = new teien.WorldServer(HelloWorld, indexHtml, publicRoot);
 
 
 

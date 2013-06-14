@@ -383,8 +383,11 @@ if (typeof exports === 'undefined'){
 (function (exports) {
      exports.WorldServer = WorldServer;
 
-     function WorldServer(apl, indexHtml, publicRoot) {
+     function WorldServer(Apl, indexHtml, publicRoot) {
 	 var that = this;
+	 this.actorManager = new exports.ActorManager();
+	 this.application = new Apl(this);
+
 	 var fs = require('fs');
 	 var path = require('path');
 
@@ -458,9 +461,66 @@ if (typeof exports === 'undefined'){
 			   socket.on('test_event', function (data) {
 					 console.log(data);
 				     });
+
+			   that.setup();
+			   that.socket = socket;
 		       });
-	 
+
+	 this.enableShadow = function(bl) {
+	     this.actorManager.defaultShadow = bl;
+//	     postMessage({type: "shadow", flag: bl});
+	 };
+
+	 this.update = function(delta) {
+	     var now;
+	     var delta;
+	     
+	     if (delta === undefined) {
+		 now = Date.now();
+		 delta = now - that.lastTime;
+		 that.lastTime = now;
+	     }
+	     
+	     that.actorManager.update(delta);
+	     that.application.update(delta);
+	     
+	     var models = that.getAllModels();
+	     that.socket.emit('models', models);
+//	     postMessage({type: "update", models: models});
+	 };
+
+
      };
+
+	 
+     WorldServer.prototype.setup = function() {
+	 this.application.setup();    
+	 
+	 this.lastTime = Date.now();
+	 setInterval(this.update, 1000 / 30);
+     };
+
+     WorldServer.prototype.getAllModels = function() {
+	 var models = {};
+	 
+	 for(key in this.actorManager.actors) {
+	     var model = {};
+	     
+	     model.actorInfo = this.actorManager.actors[key].actorInfo;
+	     
+	     var transform = this.actorManager.actors[key].getTransform();
+	     model.transform = new exports.Transform(
+		 exports.Vector3D.createFromAmmo(transform.getOrigin()),
+		 exports.Quaternion.createFromAmmo(transform.getRotation()));
+	     
+	     models[key] = model;
+	 }
+	 
+	 return models;
+     };
+     
+
+     
 
  })(typeof teien === 'undefined' ? module.exports : teien);
 
@@ -478,7 +538,7 @@ if (typeof exports === 'undefined'){
 	 // for physics
 	 this.usePhysics = true;
 	 this.mass = 0;
-	 this.angularFactor = new teien.Vector3D(1.0, 1.0, 1.0);
+	 this.angularFactor = new exports.Vector3D(1.0, 1.0, 1.0);
 	 this.restitution = 0.2;
 	 this.friction = 1.0;
 	 this.linearDamping = 0.0;
@@ -498,7 +558,7 @@ if (typeof exports === 'undefined'){
      exports.BoxActor = BoxActor;
 
      function BoxActor(actorInfo, actorManager) {
-	 teien.Actor.call(this, actorInfo, actorManager);
+	 exports.Actor.call(this, actorInfo, actorManager);
 	 
 	 var cShape = new Ammo.btBoxShape(new Ammo.btVector3(actorInfo.width / 2,
 							     actorInfo.height / 2,
@@ -509,7 +569,7 @@ if (typeof exports === 'undefined'){
 	 var rb = actorManager.physics.createRigidBody(this, actorInfo, cShape, inertia);
 	 actorManager.physics.addRigidBody(rb, actorInfo);
 	 
-	 this.physicsState = new teien.PhysicsState(actorManager.physics);
+	 this.physicsState = new exports.PhysicsState(actorManager.physics);
 	 this.physicsState.rigidBody = rb;
      };
 
