@@ -90,7 +90,7 @@ var HelloWorldBrowser = function() {
 
 
 var ui = new teien.UserInterface(HelloWorldBrowser);
-var model = new Worker("dist/teien_proxy_worker.js");
+var model = new Worker("examples/hello_world_shared/hello_world_proxy.js");
 
 var browser = new teien.Browser(model, ui);
 browser.run();

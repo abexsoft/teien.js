@@ -4,7 +4,7 @@ var libPath  = __dirname + "/../lib/";
 
 var teienDistFile = __dirname + '/../dist/teien.js';
 var teienSources = [
-    "teien_header.js",
+    "header.js",
     "util/util.js",
     "world/physics/physics.js",
     "world/physics/physics_state.js",
@@ -24,10 +24,15 @@ var teienSources = [
     "actors/json_mesh/json_mesh_actor.js"
 ];
 
+var teienProxyDistFile = __dirname + '/../dist/teien_proxy.js';
+var teienProxySources = teienSources.concat(
+    ["world/world_proxy.js"]
+);
+
 var teienBrowserDistFile = __dirname + '/../dist/teien_browser.js';
 var teienBrowserSources = [
-    "teien_header.js",
-    "teien_browser.js",
+    "header.js",
+    "browser.js",
     "util/util.js",
     "user_interface/user_interface.js",
     "user_interface/actor_view.js",
@@ -68,6 +73,7 @@ var builder = function(distFile, sourceList){
 }
 
 builder(teienDistFile, teienSources);
+builder(teienProxyDistFile, teienProxySources);
 builder(teienBrowserDistFile, teienBrowserSources);
 
 

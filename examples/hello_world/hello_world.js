@@ -78,4 +78,5 @@ var HelloWorld = function(world) {
 };
 
 var world = new teien.World(HelloWorld);
+world.run();
 

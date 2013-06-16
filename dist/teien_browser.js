@@ -3,12 +3,22 @@ if (typeof exports === 'undefined'){
     var teien = {};
 }
 
+if (typeof importScripts !== 'undefined'){
+    function Console() {
+	this.log = function(str) {
+	    postMessage({type: "log", log: str});
+	};
+    }
+    console = new Console();
+}
 
 
-teien.Browser = function(worldModelWorker, userInterface) {
+
+
+teien.Browser = function(worldWorker, userInterface) {
     var that = this;
 
-    this.worldModelWorker = worldModelWorker;
+    this.worldWorker = worldWorker;
     this.userInterface = userInterface;
 
     this.fpsCnt = 0;
@@ -29,13 +39,13 @@ teien.Browser = function(worldModelWorker, userInterface) {
 	that.showFps(delta);
     };
 
-    this.worldModelWorker.onmessage = function(event) {
+    this.worldWorker.onmessage = function(event) {
 	switch(event.data.type) {
 	case "log":  
 	    console.log(event.data.log);
 	    break;
 	case "update":
-	    that.userInterface.update(event.data.models);
+	    that.userInterface.update(event.data.actors);
 	    break;
 	case "shadow":
 	    that.userInterface.render.shadowMapEnabled = event.data.flag;
@@ -48,8 +58,8 @@ teien.Browser = function(worldModelWorker, userInterface) {
 
 teien.Browser.prototype.run = function() {
 
-    this.worldModelWorker.postMessage({type: "setup"});
-    this.userInterface.setup(this.worldModelWorker);
+    this.worldWorker.postMessage({type: "setup"});
+    this.userInterface.setup(this.worldWorker);
 
     this.lastTime = Date.now();
     requestAnimationFrame(this.update)
