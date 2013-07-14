@@ -51,7 +51,7 @@ teien.Browser = function(worldWorker, userInterface) {
 	    that.userInterface.render.shadowMapEnabled = event.data.flag;
 	    break;
 	default:
-	    console.log(event.data);
+	    that.userInterface.onMessage(event);
 	};
     };
 };
@@ -246,6 +246,11 @@ teien.UserInterface.prototype.render = function(delta) {
 
     this.renderer.render(this.scene, this.camera);
 };
+
+teien.UserInterface.prototype.onMessage = function(event) {
+    this.application.onMessage(event);
+};
+
 
 teien.ActorView = function(userInterface) {
     this.userInterface = userInterface;

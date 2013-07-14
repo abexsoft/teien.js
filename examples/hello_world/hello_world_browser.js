@@ -2,13 +2,13 @@
 var HelloWorldBrowser = function() {
     var that = this;
 
-    this.setup = function(model, userInterface) {
-	this.model = model;
+    this.setup = function(world, userInterface) {
+	this.world = world;
 	this.userInterface = userInterface;
-	this.morphs = [];
 
 	this.userInterface.renderer.shadowMapEnabled = true;
 
+	this.userInterface.camera.useQuaternion = true;
 	this.userInterface.camera.position.set(0, 5, 10);
 	this.controls = new THREE.OrbitControls(this.userInterface.camera);
 
@@ -44,8 +44,6 @@ var HelloWorldBrowser = function() {
 
 	this.controls.update(delta);
 
-	if (this.morphs[0])
-	    this.morphs[0].updateAnimation(delta );
     };
 
     this.onKeyDown = function ( event ) {
@@ -81,18 +79,40 @@ var HelloWorldBrowser = function() {
 	case 68: /*D*/ that.moveRight = false; break;
 
 	case 82: /*r*/
-
 	}	
+    };
+
+    this.onMouseDown = function(event) {
+
+	event.preventDefault();
+	event.stopPropagation();
+
+	switch ( event.button ) {
+	case 0: that.leftMouse = true; 
+	    var pos = that.userInterface.camera.position;
+	    var dir = new THREE.Vector3(0, 0, -1);
+	    dir.applyQuaternion(that.userInterface.camera.quaternion);
+
+	    world.postMessage({type: "shotbox",
+			       pos: pos,
+			       dir: dir
+			      });
+	    break;
+	case 2: that.rightMouse= true; 
+	    console.log("right mouse");
+	    break;
+	}
     };
 
     document.addEventListener( 'keydown', this.onKeyDown, false );
     document.addEventListener( 'keyup', this.onKeyUp, false );
+    document.addEventListener( 'mousedown', this.onMouseDown, false );
 };
 
 
 var ui = new teien.UserInterface(HelloWorldBrowser);
-var model = new Worker("./hello_world.js");
+var world = new Worker("./hello_world.js");
 
-var browser = new teien.Browser(model, ui);
+var browser = new teien.Browser(world, ui);
 browser.run();
 

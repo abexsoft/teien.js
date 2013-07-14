@@ -2,7 +2,7 @@ var fs = require('fs');
 
 var libPath  = __dirname + "/../lib/";
 
-var teienDistFile = __dirname + '/../dist/teien.js';
+var teienBuildFile = __dirname + '/../build/teien.js';
 var teienSources = [
     "header.js",
     "util/util.js",
@@ -24,12 +24,12 @@ var teienSources = [
     "actors/json_mesh/json_mesh_actor.js"
 ];
 
-var teienProxyDistFile = __dirname + '/../dist/teien_proxy.js';
+var teienProxyBuildFile = __dirname + '/../build/teien_proxy.js';
 var teienProxySources = teienSources.concat(
     ["world/world_proxy.js"]
 );
 
-var teienBrowserDistFile = __dirname + '/../dist/teien_browser.js';
+var teienBrowserBuildFile = __dirname + '/../build/teien_browser.js';
 var teienBrowserSources = [
     "header.js",
     "browser.js",
@@ -49,7 +49,7 @@ var teienBrowserSources = [
 ];
 
 
-var builder = function(distFile, sourceList){
+var builder = function(buildFile, sourceList){
     var code = "";
     sourceList.forEach(
 	function(file){
@@ -64,16 +64,16 @@ var builder = function(distFile, sourceList){
     );
 
     try {
-	fs.openSync(distFile, 'w');
-	fs.writeFileSync(distFile, code, 'utf8');
-	console.log("created: " + distFile);
+	fs.openSync(buildFile, 'w');
+	fs.writeFileSync(buildFile, code, 'utf8');
+	console.log("created: " + buildFile);
     } catch (e) {
 	console.log(e.message);
     }
 }
 
-builder(teienDistFile, teienSources);
-builder(teienProxyDistFile, teienProxySources);
-builder(teienBrowserDistFile, teienBrowserSources);
+builder(teienBuildFile, teienSources);
+builder(teienProxyBuildFile, teienProxySources);
+builder(teienBrowserBuildFile, teienBrowserSources);
 
 

@@ -1,7 +1,7 @@
-all: build
+all: pack
 
-build:
+pack:
 	node ./bin/builder.js
 
 clean:
-	rm -f ./dist/teien.js ./dist/teien_browser.js
+	rm -f ./build/teien.js ./build/teien_browser.js

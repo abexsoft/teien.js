@@ -1,5 +1,5 @@
 Ammo = require("../../deps/ammo.js/builds/ammo.asm.js").Ammo;
-teien = require("../../dist/teien.js");
+teien = require("../../build/teien.js");
 
 
 var HelloWorld = function(world) {

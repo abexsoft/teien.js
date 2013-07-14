@@ -1,9 +1,10 @@
 importScripts("../../deps/ammo.js/builds/ammo.asm.js");
-importScripts("../../dist/teien.js");
+importScripts("../../build/teien.js");
 
 var HelloWorld = function(world) {
     var that = this;
     this.world = world;
+    this.sum = 0;
 	 
     this.setup = function(){
 	var obj;
@@ -74,6 +75,24 @@ var HelloWorld = function(world) {
     };
 
     this.update = function(delta){
+    };
+
+    this.onMessage = function(event) {
+	console.log(event.data.type);
+
+	var actorInfo;
+	actorInfo = new teien.SphereActorInfo(0.5);
+	actorInfo.mass = 5;
+	actorInfo.textureName = "../../deps/three.js/examples/textures/crate.gif";
+	var obj = this.world.actorManager.createActor("shot" + that.sum, actorInfo);
+	obj.setPosition(new teien.Vector3D(event.data.pos.x,
+					   event.data.pos.y,
+					   event.data.pos.z));
+
+	obj.applyImpulse(new teien.Vector3D(event.data.dir.x * 100, 
+					    event.data.dir.y * 100, 
+					    event.data.dir.z * 100));
+	that.sum += 1;
     };
 };
 
